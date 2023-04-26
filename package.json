@@ -1,5 +1,5 @@
 {
-  "name": "word-puzzle",
+  "name": "todo",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -18,7 +18,10 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
+    "bootstrap": "^5.2.3",
+    "css-loader": "^6.7.3",
     "rxjs": "~7.5.0",
+    "style-loader": "^3.3.2",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

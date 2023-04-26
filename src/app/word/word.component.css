@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .flex-child{
+    display: inline-block;
+    width: 0;
+    flex-grow: 1;
+  }
+  
+  input {
+    min-width: 50px;
+    min-height: 50px;
+  }
+  
+  .container input:checked {
+    display: block;
+  }
+
+  
+  
