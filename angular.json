@@ -29,7 +29,9 @@
             "styles": [
               "src/styles.css", "src/app/word/word.component.css"
             ],
-            "scripts": []
+            "scripts": [
+              
+            ]
           },
           "configurations": {
             "production": {

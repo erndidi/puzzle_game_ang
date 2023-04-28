@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './error/error.component';
-import { ListTodosComponent, Todo } from './list-todos/list-todos.component';
 import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -16,6 +15,7 @@ import { WordComponent } from './word/word.component';
 import { LetterComponent } from './letter/letter.component';
 import { HintComponent } from './hint/hint.component';
 import { WordService } from './service/data/word.service';
+import { MisplacedComponent } from './misplaced/misplaced.component';
 
 @NgModule({
   declarations: [
@@ -23,15 +23,13 @@ import { WordService } from './service/data/word.service';
     WelcomeComponent,
     LoginComponent,
     ErrorComponent,
-    ListTodosComponent,
     MenuComponent,
     FooterComponent,
     LogoutComponent,
     WordComponent,
     LetterComponent,
-    HintComponent
-    
-    
+    HintComponent,
+    MisplacedComponent
   ],
   imports: [
     BrowserModule,    

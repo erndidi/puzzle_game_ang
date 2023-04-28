@@ -26,7 +26,7 @@ export class WordService {
                                 {id:3, text:'this is a totally wrong hint', isRightOne:false}                              
                               
                               ]};
-                                console.log('IncomingWord is '+IncomingWord);
+                                //console.log('IncomingWord is '+IncomingWord);
     return IncomingWord;
   }
 

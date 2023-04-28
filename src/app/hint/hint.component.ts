@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 
+
 export class Hint{
   constructor(
       public id: number,
@@ -20,10 +21,38 @@ export class HintComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let test = sessionStorage.getItem("hints");
-    console.log('hints in hint.component.ts ', test);
+    
   }
   
+
+  ngOnChanges(changes: SimpleChanges) {
+    let change = changes['hints'];
+    if(!change.firstChange){
+      this.hints = change.currentValue;
+    }
+  }
+
+  handleHintRequst(){
+    console.log('handleHintReq')
+    let workHints = this.hints;
+    let len = workHints.length;
+    
+    let haveGoner = false;
+    
+    while(!haveGoner)
+    {
+      let idx = Math.floor(Math.random()*len);
+      if(!workHints[idx].isRightOne)
+      {
+        workHints.splice(idx,1);
+        console.log(workHints);
+        this.hints=workHints;
+        haveGoner=true;
+      }
+    } 
+
+
+  }
 
   
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { WelcomeDataService } from '../service/data/welcome-data.service';
+import { WordComponent } from '../word/word.component';
 
 @Component({
   selector: 'app-welcome',
@@ -17,8 +18,7 @@ export class WelcomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.message);
-    console.log(this.route.snapshot.params['name']);
+   
 
   }
    getWelcomeMessage(){

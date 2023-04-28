@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListTodosComponent } from './list-todos.component';
+import { MisplacedComponent } from './misplaced.component';
 
-describe('ListTodosComponent', () => {
-  let component: ListTodosComponent;
-  let fixture: ComponentFixture<ListTodosComponent>;
+describe('MisplacedComponent', () => {
+  let component: MisplacedComponent;
+  let fixture: ComponentFixture<MisplacedComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ListTodosComponent ]
+      declarations: [ MisplacedComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ListTodosComponent);
+    fixture = TestBed.createComponent(MisplacedComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

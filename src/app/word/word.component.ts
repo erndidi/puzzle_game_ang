@@ -30,7 +30,7 @@ export class WordComponent implements OnInit {
   //lettersArray:[IncomingWord] = []
  // _word: Word;
   _svc:WordService;
-   //@Output() hints:Hint[] = [];
+   @Output()  misplaced:string[] = [];
    @Output() hints:Hint[] = [];
 
     _word:Word = new Word(0,"");
@@ -54,23 +54,23 @@ export class WordComponent implements OnInit {
    
   }
     processWord():void {
-      console.log(this._svc.getWord());
+      //console.log(this._svc.getWord());
       let work = this._svc.getWord();  
-      console.log(work.text); 
+     // console.log(work.text); 
       this.letterArray = [...work.text];
       let numArrayElems = this.getRandomInt(1,4);
       for (let i = 0; i < this.letterArray.length+numArrayElems; i++) {
          this.letter_guess.push('');
       }
       this.cdr.detectChanges();
-      console.log(this.letter_guess);
+    //  console.log(this.letter_guess);
       this.processHints(work);
     }
 
     processHints(incoming:any):void {
       this.hints = incoming.hints;
       sessionStorage.setItem("hints", JSON.stringify(this.hints));
-      console.log('hints are ',JSON.stringify(this.hints));
+     // console.log('hints are ',JSON.stringify(this.hints));
 
       //let work = this._svc.getHint();
 
@@ -89,9 +89,19 @@ export class WordComponent implements OnInit {
         this.letter_guess[idx]='';
         event.target.value = '';
       }
+
       console.log('letter guess '+this.letter_guess[idx]);
       console.log('all letter guess '+this.letter_guess);
        // this.cdr.detectChanges();
+    }
+
+    searchForMisplaced(letter:string){
+        this.letterArray.forEach(element => {
+          if(element===letter){
+              this.misplaced.push(letter);
+          }
+        });
+
     }
   
     trackByFn(index: number, item: string) {

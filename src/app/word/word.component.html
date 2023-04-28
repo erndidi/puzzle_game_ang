@@ -1,11 +1,14 @@
 
 
 <div *ngIf="letterArray"  class="container">
-    <div *ngFor="let l of letter_guess; let i=index trackBy: trackByFn" >
+    <div class="mb-3" *ngFor="let l of letter_guess; let i=index trackBy: trackByFn" >
         
-        <input type="text" (input)="handleInput($event,i)"  class="flex-child" [value]="l"  />
+        <input type="text" (input)="handleInput($event,i)"  class="flex-child form-control" [value]="l"  />
        
     </div> 
 
 </div>
-<app-hint *ngIf="hints" [hints]='hints'></app-hint>
+<ng-container *ngIf="hints">
+    <app-hint  [hints]='hints'></app-hint>
+</ng-container>
+ 
