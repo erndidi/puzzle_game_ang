@@ -1,0 +1,11 @@
+/* todo: find out why this works in entity.ts but not here.
+
+import { Injectable } from "@angular/core";
+
+@Inject
+export class Utility {
+  searchForLetterInArray(letter: string, inArray: Array<string>[]) {
+    return inArray.map((element) => element.includes(letter));
+  }
+}
+*/

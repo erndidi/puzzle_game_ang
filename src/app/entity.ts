@@ -30,3 +30,11 @@ export class Definition {
     public text: string
   ) {}
 }
+
+@Inject
+export class Utility {
+  searchForLetterInArray(letter: string, inString: string) {
+    let inArray = inString.split(',')
+    return inArray.map((element) => element.includes(letter));
+  }
+}

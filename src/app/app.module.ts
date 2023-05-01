@@ -16,6 +16,7 @@ import { LetterComponent } from './letter/letter.component';
 import { HintComponent } from './hint/hint.component';
 import { WordService } from './service/data/word.service';
 import { MisplacedComponent } from './misplaced/misplaced.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MisplacedComponent } from './misplaced/misplaced.component';
     WordComponent,
     LetterComponent,
     HintComponent,
-    MisplacedComponent
+    MisplacedComponent,
+      ModalComponent
   ],
   imports: [
     BrowserModule,    

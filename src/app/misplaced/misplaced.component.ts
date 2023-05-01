@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit,Input,ChangeDetectorRef, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-misplaced',
@@ -8,7 +8,20 @@ import { Component, OnInit,Input,OnChanges, SimpleChanges } from '@angular/core'
 export class MisplacedComponent implements OnInit {
 
   constructor() { }
-  @Input()  misplacedLetters:string[] = [];
+  @Input()  _misplaced:string[] = [];
+  @Input() set misplaced(value: string[]) {
+    
+    this._misplaced = value;
+ 
+ 
+ }
+ 
+ get categoryId(): string[] {
+ 
+     return this._misplaced;
+ 
+ }
+
   
    
 
@@ -16,9 +29,11 @@ export class MisplacedComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    let change = changes['hints'];
+    console.log('misplaced is ',this.misplaced);
+    let change = changes['misplaced'];
     if(!change.firstChange){
-      this.misplacedLetters = change.currentValue;
+      console.log('change current value is ',change);
+      this.misplaced = change.currentValue;
     }
   }
 

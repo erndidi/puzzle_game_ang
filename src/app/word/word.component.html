@@ -1,4 +1,8 @@
 
+<ng-container *ngIf="misplaced">
+    <app-misplaced [misplaced]="misplaced"></app-misplaced>
+</ng-container>
+   
 
 <div *ngIf="letterArray"  class="container">
     <div class="mb-3" *ngFor="let l of letter_guess; let i=index trackBy: trackByFn" >
