@@ -8,20 +8,8 @@ import { Component, OnInit,Input,ChangeDetectorRef, SimpleChanges } from '@angul
 export class MisplacedComponent implements OnInit {
 
   constructor() { }
-  @Input()  _misplaced:string[] = [];
-  @Input() set misplaced(value: string[]) {
-    
-    this._misplaced = value;
- 
- 
- }
- 
- get categoryId(): string[] {
- 
-     return this._misplaced;
- 
- }
-
+ // @Input()  _misplaced:string[] = [];
+  @Input() misplaced: string[]=[''];
   
    
 

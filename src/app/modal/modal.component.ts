@@ -1,5 +1,6 @@
-import { Component, ViewEncapsulation, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, ElementRef, Input, OnInit, OnDestroy, Output } from '@angular/core';
 import { ModalService } from '../service/modal.service';
+import { Content } from '../entity';
 
 @Component({
   selector: 'app-modal',
@@ -8,9 +9,12 @@ import { ModalService } from '../service/modal.service';
 })
 export class ModalComponent implements OnInit {
   @Input() id?: string;
+  @Input() content:Content = new Content("","");
+  @Output() isYes?:Boolean;
   isOpen = false;
   private element: any;
   _modalSvc:ModalService;
+  
 
   constructor(private modalService: ModalService, private el: ElementRef) {
     this.element = el.nativeElement;
@@ -41,6 +45,7 @@ ngOnDestroy() {
 }
 
 open() {
+ 
   this.element.style.display = 'block';
   document.body.classList.add('modal-open');
   this.isOpen = true;

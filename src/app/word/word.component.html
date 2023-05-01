@@ -4,7 +4,7 @@
 </ng-container>
    
 
-<div *ngIf="letterArray"  class="container">
+<div *ngIf="letterOfRec"  class="container">
     <div class="mb-3" *ngFor="let l of letter_guess; let i=index trackBy: trackByFn" >
         
         <input type="text" (input)="handleInput($event,i)"  class="flex-child form-control" [value]="l"  />

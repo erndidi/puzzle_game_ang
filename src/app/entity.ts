@@ -23,7 +23,7 @@ export class Word{
   
 }
 
-export class Definition {
+export class Definition {  
   constructor(
     public id: string,
     public wordid: number,
@@ -37,4 +37,13 @@ export class Utility {
     let inArray = inString.split(',')
     return inArray.map((element) => element.includes(letter));
   }
+}
+
+export class Content{
+  constructor(
+  public heading:string,
+  public description:string
+  )
+  {}
+
 }

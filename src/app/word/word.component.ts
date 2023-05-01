@@ -3,7 +3,9 @@ import { LetterComponent } from '../letter/letter.component';
 import { WordService } from '../service/data/word.service';
 import { Hint, HintComponent } from '../hint/hint.component';
 import { MisplacedComponent } from '../misplaced/misplaced.component';
+import { ModalComponent } from '../modal/modal.component';
 import './word.component.css';
+import { Content } from '../entity';
 
 
 //import { Hint } from '../entity';
@@ -36,17 +38,22 @@ export class WordComponent implements OnInit {
   _svc: WordService;
   @Output() misplaced: string[] = [];
   @Output() hints: Hint[] = [];
+  @Output() content:Content = new Content("","");
 
   _word: Word = new Word(0, "");
-  letterArray: string[] = [''];
-  letter_guess: string[] = ['']
+  letterOfRec: string[] = [''];
+  letter_guess: string[] = [''];
+  _modal: ModalComponent;
   constructor(
     private svc: WordService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private modal: ModalComponent
+
     //word:Word
   ) {
     //  this._word = word;
     this._svc = svc;
+    this._modal = modal;
   }
 
 
@@ -61,9 +68,9 @@ export class WordComponent implements OnInit {
     //console.log(this._svc.getWord());
     let work = this._svc.getWord();
     // console.log(work.text); 
-    this.letterArray = [...work.text];
+    this.letterOfRec = [...work.text];
     let numArrayElems = this.getRandomInt(1, 4);
-    for (let i = 0; i < this.letterArray.length + numArrayElems; i++) {
+    for (let i = 0; i < this.letterOfRec.length + numArrayElems; i++) {
       this.letter_guess.push('');
     }
     this.cdr.detectChanges();
@@ -87,23 +94,41 @@ export class WordComponent implements OnInit {
   }
 
   handleInput(event: any, idx: number) {
-    if (this.letterArray[idx] === event.target.value) {
-      this.letter_guess[idx] = event.target.value;
-    } else {
-      this.letter_guess[idx] = '';
-      this.searchForMisplaced(event.target.value);
-      event.target.value = '';
+    if (this.checkForWinner() === false) {
+      if (this.letterOfRec[idx] === event.target.value) {
+        this.letter_guess[idx] = event.target.value;
+      } else {
+        this.letter_guess[idx] = '';
+        this.searchForMisplaced(event.target.value);
+        event.target.value = '';
+      }
+
+      //console.log('letter guess '+this.letter_guess[idx]);
+      // console.log('all letter guess '+this.letter_guess);
+      this.cdr.detectChanges();
+    }else
+    {
+        this.content.heading="We have a winner!";
+        this.content.description = "Do you want to start a new game?";
+        this.modal.open();
     }
 
-    //console.log('letter guess '+this.letter_guess[idx]);
-    // console.log('all letter guess '+this.letter_guess);
-    this.cdr.detectChanges();
+  }
 
+  checkForWinner() {
+    let hasMatch: Boolean = true;
+    this.letterOfRec.forEach((element, idx) => {
+      if (!(element === this.letter_guess[idx])) {
+        hasMatch = false;
+      }
+
+    });
+    return hasMatch;
   }
 
   searchForMisplaced(letter: string) {
     console.log('letter is ', letter);
-    let outString = this.letterArray.toString()
+    let outString = this.letterOfRec.toString()
     let isLetterInWord = this.searchForLetterInArray(letter, outString);
     console.log('hasNotBeenRec ', isLetterInWord);
     if (isLetterInWord) {
