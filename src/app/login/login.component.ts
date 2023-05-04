@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HardcodedAuthenticationService } from '../service/hardcoded-authentication.service';
-
-
+//import { CredentialResponse, PromptMomentNotification } from 'google-one-tap';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +13,9 @@ export class LoginComponent implements OnInit {
   username = '';
   password = '';
   validLogin = false;
+  //todo: integrate with google one tap
+  //cred:CredentialResponse = '';
+  //prompt: PromptMomentNotification = '';
   constructor(private router: Router, private hardcodedAuthenticationService:HardcodedAuthenticationService) { }
 
   ngOnInit(): void {

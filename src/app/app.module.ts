@@ -16,8 +16,10 @@ import { LetterComponent } from './letter/letter.component';
 import { HintComponent } from './hint/hint.component';
 import { WordService } from './service/data/word.service';
 import { MisplacedComponent } from './misplaced/misplaced.component';
-import { ModalComponent } from './modal/modal.component';
-import { ModalService } from './service/modal.service';
+import { SignupComponent } from './signup/signup.component';
+
+//import { ModalComponent } from './modal/modal.component';
+//import { ModalService } from './service/modal.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { ModalService } from './service/modal.service';
     LetterComponent,
     HintComponent,
     MisplacedComponent,
-    ModalComponent
+    SignupComponent
+   // ModalComponent
   ],
   imports: [
     BrowserModule,    
@@ -40,7 +43,7 @@ import { ModalService } from './service/modal.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [{provide: HelloWorldBean, useValue:{message:''}}, WordService,ModalService],
+  providers: [{provide: HelloWorldBean, useValue:{message:''}}, WordService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

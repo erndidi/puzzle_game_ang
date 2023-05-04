@@ -7,12 +7,35 @@
 <div *ngIf="letterOfRec"  class="container">
     <div class="mb-3" *ngFor="let l of letter_guess; let i=index trackBy: trackByFn" >
         
-        <input type="text" (input)="handleInput($event,i)"  class="flex-child form-control" [value]="l"  />
+        <input type="text" (keyup)="onKeyUpEvent($event)" (input)="handleInput($event,i)"  class="flex-child form-control" [value]="l"  />
        
     </div> 
 
 </div>
+
 <ng-container *ngIf="hints">
     <app-hint  [hints]='hints'></app-hint>
 </ng-container>
  
+
+<div class="modal" id="endModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{content.heading}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>{{content.description}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary">Sign In</button>
+          <button type="button" class="btn btn-secondary" (click)="endGame($event)" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

@@ -3,9 +3,10 @@ import { LetterComponent } from '../letter/letter.component';
 import { WordService } from '../service/data/word.service';
 import { Hint, HintComponent } from '../hint/hint.component';
 import { MisplacedComponent } from '../misplaced/misplaced.component';
-import { ModalComponent } from '../modal/modal.component';
+//import { ModalComponent } from '../modal/modal.component';
 import './word.component.css';
-import { Content } from '../entity';
+import { Content, EndContent, EndHeading } from '../entity';
+declare var bootstrap: any;
 
 
 //import { Hint } from '../entity';
@@ -38,22 +39,22 @@ export class WordComponent implements OnInit {
   _svc: WordService;
   @Output() misplaced: string[] = [];
   @Output() hints: Hint[] = [];
-  @Output() content:Content = new Content("","");
+  @Output() content:Content = new Content(EndHeading(),EndContent());
 
   _word: Word = new Word(0, "");
   letterOfRec: string[] = [''];
   letter_guess: string[] = [''];
-  _modal: ModalComponent;
+  //_modal: ModalComponent;
   constructor(
     private svc: WordService,
-    private cdr: ChangeDetectorRef,
-    private modal: ModalComponent
+    private cdr: ChangeDetectorRef
+    //private modal: ModalComponent
 
     //word:Word
   ) {
-    //  this._word = word;
+    
     this._svc = svc;
-    this._modal = modal;
+
   }
 
 
@@ -93,8 +94,13 @@ export class WordComponent implements OnInit {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
   }
 
+  clearGame(){
+     this.letter_guess=[""];
+  }
+
   handleInput(event: any, idx: number) {
-    if (this.checkForWinner() === false) {
+  
+    
       if (this.letterOfRec[idx] === event.target.value) {
         this.letter_guess[idx] = event.target.value;
       } else {
@@ -102,17 +108,30 @@ export class WordComponent implements OnInit {
         this.searchForMisplaced(event.target.value);
         event.target.value = '';
       }
-
-      //console.log('letter guess '+this.letter_guess[idx]);
-      // console.log('all letter guess '+this.letter_guess);
       this.cdr.detectChanges();
-    }else
-    {
-        this.content.heading="We have a winner!";
-        this.content.description = "Do you want to start a new game?";
-        this.modal.open();
-    }
+  
 
+  }
+
+  onKeyUpEvent(event:any){
+    console.log('keyup event');
+    console.log(this.checkForWinner());
+    if (this.checkForWinner() === true) {
+      
+    }
+  }
+
+  showModal(){
+   var myModal = new bootstrap.Modal(document.getElementById('endModal'));
+    myModal.show();
+  }
+
+  closeModal(){
+   
+  }
+
+  endGame(event:any){
+    this.clearGame();
   }
 
   checkForWinner() {

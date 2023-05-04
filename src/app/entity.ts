@@ -47,3 +47,27 @@ export class Content{
   {}
 
 }
+
+export class User {
+  public name!: string;
+  public email!: string;
+  public password!: string;
+  public hobbies!: string;
+}
+
+
+export function EndHeading() {
+    return "Hey that's it!"
+}
+
+export function EndContent(){
+  return "Nicely done. If you want to see how you do against other players, consider signing so we can keep track of your scrore. Click the login below!"
+}
+
+export function rtnGoogleAuthid(){
+  return "987594674066-qk66b1tjs7o2bqcdrsjs542t79g0h6k2.apps.googleusercontent.com";
+}
+
+export function rtnGoogleClientid(){
+  return "987594674066-qk66b1tjs7o2bqcdrsjs542t79g0h6k2.apps.googleusercontent.com";
+}
