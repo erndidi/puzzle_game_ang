@@ -1,10 +1,13 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: "https://localhost:7274/",
+  clientId: "528531459183-udui3pqk4ooq0mm03gc1hss3tom4c1pa.apps.googleusercontent.com",
+  appId: "1901603733551447"
 };
+declare var window: Window & typeof globalThis;
 
 /*
  * For easier debugging in development mode, you can import the following file
