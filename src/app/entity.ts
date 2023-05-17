@@ -10,33 +10,46 @@ export class HelloWorldBean {
 export class Hint{
   constructor(
       public id: number,
-      public text:string, 
-      public isRightOne: boolean){}
+      public Text:string
+  ){}
 }
-@Inject
-export class Word{
+
+export class WordObj{
   constructor(
-    public id: number,
-    public text:string,
-    public hints: Hint[]
+    public Id: number,
+    public Text:string,
+    public Definitions: Definition[]
   ){}
   
 }
 
 export class Definition {  
   constructor(
-    public id: string,
-    public wordid: number,
-    public text: string
+    public Id: string,
+    public Text: string,
+    public WordId: number
   ) {}
 }
 
-@Inject
+
 export class Utility {
-  searchForLetterInArray(letter: string, inString: string) {
+ public searchForLetterInArray(letter: string, inString: string) {
     let inArray = inString.split(',')
     return inArray.map((element) => element.includes(letter));
   }
+  constructor(){}
+
+  public rtnClientId(){
+    return "479979327892-u4ej1pvcn60a235opbdn93imo6n5kmtq.apps.googleusercontent.com"
+  }
+  
+  public rtnApiUrl(){
+    return "https://localhost:7274/"
+  }
+
+  public apiKey:string = "AIzaSyA1tN6Ii-mWBs8WovBBbWuCPUevUANwjOo";
+
+
 }
 
 export class Content{
@@ -56,6 +69,9 @@ export class User {
 }
 
 
+declare var window: Window & typeof globalThis;
+
+
 export function EndHeading() {
     return "Hey that's it!"
 }
@@ -71,3 +87,17 @@ export function rtnGoogleAuthid(){
 export function rtnGoogleClientid(){
   return "987594674066-qk66b1tjs7o2bqcdrsjs542t79g0h6k2.apps.googleusercontent.com";
 }
+
+export function rtnClientId(){
+  return "528531459183-udui3pqk4ooq0mm03gc1hss3tom4c1pa.apps.googleusercontent.com"
+}
+
+export function rtnApiUrl(){
+  return "https://localhost:7274/"
+}
+
+export function rtnAppId(){
+  return "1901603733551447"
+}
+
+

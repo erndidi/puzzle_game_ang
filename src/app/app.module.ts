@@ -10,11 +10,12 @@ import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { LogoutComponent } from './logout/logout.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HelloWorldBean } from './entity';
+import { HelloWorldBean, Utility } from './entity';
 import { WordComponent } from './word/word.component';
 import { LetterComponent } from './letter/letter.component';
 import { HintComponent } from './hint/hint.component';
 import { WordService } from './service/data/word.service';
+import { AuthService } from './service/auth.service';
 import { MisplacedComponent } from './misplaced/misplaced.component';
 import { SignupComponent } from './signup/signup.component';
 
@@ -43,7 +44,7 @@ import { SignupComponent } from './signup/signup.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [{provide: HelloWorldBean, useValue:{message:''}}, WordService],
+  providers: [{provide: HelloWorldBean, useValue:{message:''}}, WordService,AuthService, Utility],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

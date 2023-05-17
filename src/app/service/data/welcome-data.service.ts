@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HelloWorldBean } from 'src/app/entity';
-import { Word } from 'src/app/entity';
+import { WordObj } from 'src/app/entity';
 
 
 @Injectable({
@@ -38,7 +38,7 @@ executeGetWords(name:string){
     Authorization:authHeaderString
   });
   console.log('hit execute words service');
-  return this._http.get<Word>(`http://localhost:8080//users/words/{username}`,
+  return this._http.get<WordObj>(`http://localhost:8080//users/words/{username}`,
    {headers});
 }
 

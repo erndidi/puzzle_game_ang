@@ -1,11 +1,14 @@
-import { Component, OnInit, ChangeDetectorRef, Output } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output, ɵsetAllowDuplicateNgModuleIdsForTest } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { LetterComponent } from '../letter/letter.component';
 import { WordService } from '../service/data/word.service';
+import { WordObj } from '../entity';
 import { Hint, HintComponent } from '../hint/hint.component';
 import { MisplacedComponent } from '../misplaced/misplaced.component';
 //import { ModalComponent } from '../modal/modal.component';
 import './word.component.css';
 import { Content, EndContent, EndHeading } from '../entity';
+import { Observable } from 'rxjs';
 declare var bootstrap: any;
 
 
@@ -14,6 +17,7 @@ declare var bootstrap: any;
 
 
 
+ɵsetAllowDuplicateNgModuleIdsForTest
 
 export class Word {
 
@@ -34,14 +38,16 @@ export class Word {
 })
 export class WordComponent implements OnInit {
   //lettersArray:[IncomingWord] = []
-  // _word: Word;
+  _incomingWord:any;
+  response:any;
+   _letter_of_rec: Word[]=[];
 
   _svc: WordService;
   @Output() misplaced: string[] = [];
   @Output() hints: Hint[] = [];
   @Output() content:Content = new Content(EndHeading(),EndContent());
 
-  _word: Word = new Word(0, "");
+
   letterOfRec: string[] = [''];
   letter_guess: string[] = [''];
   //_modal: ModalComponent;
@@ -61,23 +67,32 @@ export class WordComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.processWord();
-
-
+    this.getWord();
   }
+
   processWord(): void {
-    //console.log(this._svc.getWord());
-    let work = this._svc.getWord();
-    // console.log(work.text); 
-    this.letterOfRec = [...work.text];
-    let numArrayElems = this.getRandomInt(1, 4);
-    for (let i = 0; i < this.letterOfRec.length + numArrayElems; i++) {
+    let work:WordObj = this.response;
+    this.letterOfRec = [...work.Text];
+    for (let i = 0; i < this.letterOfRec.length; i++) {
       this.letter_guess.push('');
     }
+    
     this.cdr.detectChanges();
     //  console.log(this.letter_guess);
-    this.processHints(work);
+   // this.processHints(work);
   }
+
+  getWord(){
+  this._svc.getWordAndDefinitions().subscribe((result: WordObj) =>
+   {
+    this.response = result;
+   // console.log('incoming word ', this.response);
+   this.processWord();
+
+   }); 
+    
+  } 
+
 
   processHints(incoming: any): void {
     this.hints = incoming.hints;
