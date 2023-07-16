@@ -1,17 +1,25 @@
-<h1>Login!</h1>
-<div class="mb-3">
+<h2>Login!</h2>
+<h2>Create Account Here:</h2>
 
-  
-    <input type="text" class="form-control" id="name" [(ngModel)]="username" placeholder="username" required>
+<div class="mb-3"> 
+  <input type="text" class="form-control" id="username" [(ngModel)]="user.UserName" placeholder="username" required>
+</div>
+<div class="mb-3"> 
+    <input type="text" class="form-control" id="firstname" [(ngModel)]="user.Firstame" placeholder="firstname" >
+</div>
+
+<div class="mb-3"> 
+  <input type="text" class="form-control" id="lastname" [(ngModel)]="user.LastName" placeholder="lastname" >
+</div>
+<div class="mb-3"> 
+  <input type="text" class="form-control" id="email" [(ngModel)]="user.Email" placeholder="email" required>
+</div>
 
   <div class="mb-3">
 
     <input type="text" class="form-control" id="password" rows="3" [(ngModel)]="password"  placeholder="password" required>
   </div>
-  <div id="g_id_onload"
-  data-client_id="479979327892-u4ej1pvcn60a235opbdn93imo6n5kmtq.apps.googleusercontent.com"
-  data-callback="handleCredentialResponse">
-</div>
+
 <div class="g_id_signin" data-type="standard"></div>
 
 <button class="btn btn-success" (click)=handleLogin()>login</button>

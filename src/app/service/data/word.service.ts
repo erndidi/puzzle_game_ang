@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
+import { IWordObj } from 'src/app/entity';
 import { WordObj } from 'src/app/entity';
 import { Definition } from 'src/app/model/word';
 import { Observable } from 'rxjs';
@@ -26,15 +27,16 @@ export class WordService {
     this._http = http;   
   
   } 
-  public getWordAndDefinitions(): Observable<WordObj> {
-    let url = `${environment.apiUrl}/${this._url}`;
-    console.log('url is ', url);
+  public getWordAndDefinitions(wrd:string | undefined, sessionid:string | undefined ): Observable<IWordObj> {
+    let url = `${environment.apiUrl}getword/${wrd},${sessionid}`;
+     console.log('url is ', url);
   
     return this._http.get<any>(url).pipe(
       map(response => {
-       // const words: WordObj = new WordObj();
+        
          console.log('response is ',response);
-          const word = new WordObj(
+          const word:IWordObj = new WordObj(
+            response.SessionId,
             response.Id,
             response.Text,
             response.Definitions.map((definition: any) => new Definition(
@@ -48,7 +50,7 @@ export class WordService {
   
         return word;
       }),
-      tap(response => console.log('response is', response))
+    //  tap(response => console.log('response is', response))
     );
   }
 

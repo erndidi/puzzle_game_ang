@@ -1,14 +1,11 @@
 import { Component, OnInit, ChangeDetectorRef, Output, ɵsetAllowDuplicateNgModuleIdsForTest } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { LetterComponent } from '../letter/letter.component';
 import { WordService } from '../service/data/word.service';
-import { WordObj } from '../entity';
-import { Hint, HintComponent } from '../hint/hint.component';
-import { MisplacedComponent } from '../misplaced/misplaced.component';
-//import { ModalComponent } from '../modal/modal.component';
+import { IDefinition, IWordObj } from '../entity';
 import './word.component.css';
-import { Content, EndContent, EndHeading } from '../entity';
-import { Observable } from 'rxjs';
+import { Content, EndContent, EndHeading, StoreFunc } from '../entity';
+import { Router } from '@angular/router';
+
+
 declare var bootstrap: any;
 
 
@@ -17,7 +14,7 @@ declare var bootstrap: any;
 
 
 
-ɵsetAllowDuplicateNgModuleIdsForTest
+//ɵsetAllowDuplicateNgModuleIdsForTest
 
 export class Word {
 
@@ -37,71 +34,79 @@ export class Word {
   styleUrls: ['./word.component.css']
 })
 export class WordComponent implements OnInit {
-  //lettersArray:[IncomingWord] = []
+  _router:Router;
   _incomingWord:any;
   response:any;
-   _letter_of_rec: Word[]=[];
-
+   _letter_of_rec: IWordObj[]=[];
   _svc: WordService;
   @Output() misplaced: string[] = [];
-  @Output() hints: Hint[] = [];
+  definitions: IDefinition[] = [];
+  @Output() wordId: number = 0;
+  word: string = "";
+  isWinner:boolean = false;
   @Output() content:Content = new Content(EndHeading(),EndContent());
 
 
-  letterOfRec: string[] = [''];
-  letter_guess: string[] = [''];
+  letterOfRec: string[] = [];
+  letter_guess: string[] = [];
   //_modal: ModalComponent;
   constructor(
     private svc: WordService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router:Router
     //private modal: ModalComponent
 
     //word:Word
   ) {
     
     this._svc = svc;
+    this._router = router;
 
   }
-
-
-
-
   ngOnInit(): void {
-    this.getWord();
+    StoreFunc.setWordInStore('*');
+    StoreFunc.setSessionId('*');
+    this.startNewGame();
   }
 
   processWord(): void {
-    let work:WordObj = this.response;
+    let work:IWordObj = this.response;
+    this.word = work.Text;
+    console.log('work is ',work);
     this.letterOfRec = [...work.Text];
-    for (let i = 0; i < this.letterOfRec.length; i++) {
+    this.letterOfRec.forEach(element => {
       this.letter_guess.push('');
-    }
+    });
+    
+   
+    this.wordId = work.Id;
+    this.definitions = work.Definitions;
+    
     
     this.cdr.detectChanges();
     //  console.log(this.letter_guess);
    // this.processHints(work);
   }
 
-  getWord(){
-  this._svc.getWordAndDefinitions().subscribe((result: WordObj) =>
+  startNewGame(){
+  const wrd = StoreFunc.getWordFromStore();
+  const sessionid = StoreFunc.getSessionId();
+  this._svc.getWordAndDefinitions(wrd,sessionid).subscribe((result: IWordObj) =>
    {
     this.response = result;
-   // console.log('incoming word ', this.response);
+    console.log('incoming word ', this.response);
    this.processWord();
 
    }); 
     
-  } 
+} 
 
-
-  processHints(incoming: any): void {
-    this.hints = incoming.hints;
-    sessionStorage.setItem("hints", JSON.stringify(this.hints));
-    // console.log('hints are ',JSON.stringify(this.hints));
-
-    //let work = this._svc.getHint();
-
-  }
+public EndGame() {
+  this.isWinner = false;
+  this.letter_guess=[""];
+  this.startNewGame();
+  
+}
 
   getRandomInt(min: number, max: number) {
     min = Math.ceil(min);
@@ -109,12 +114,7 @@ export class WordComponent implements OnInit {
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
   }
 
-  clearGame(){
-     this.letter_guess=[""];
-  }
-
   handleInput(event: any, idx: number) {
-  
     
       if (this.letterOfRec[idx] === event.target.value) {
         this.letter_guess[idx] = event.target.value;
@@ -123,31 +123,28 @@ export class WordComponent implements OnInit {
         this.searchForMisplaced(event.target.value);
         event.target.value = '';
       }
+      if(this.checkForWinner()){
+        const storedWrd = StoreFunc.getWordFromStore();
+        StoreFunc.setWordInStore(JSON.stringify(storedWrd+","+this.letter_guess));
+        console.log(StoreFunc.getWordFromStore());
+      
+      }
       this.cdr.detectChanges();
   
 
   }
 
   onKeyUpEvent(event:any){
-    console.log('keyup event');
-    console.log(this.checkForWinner());
+    //console.log('keyup event');
+   // console.log(this.checkForWinner());
     if (this.checkForWinner() === true) {
-      
+        this.isWinner=true;
     }
   }
 
-  showModal(){
-   var myModal = new bootstrap.Modal(document.getElementById('endModal'));
-    myModal.show();
-  }
 
-  closeModal(){
-   
-  }
 
-  endGame(event:any){
-    this.clearGame();
-  }
+ 
 
   checkForWinner() {
     let hasMatch: Boolean = true;

@@ -1,13 +1,10 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { IDefinition } from '../entity';
 
 
 
-export class Hint{
-  constructor(
-      public id: number,
-      public text:string, 
-      public isRightOne: boolean){}
-}
+
+
 
 @Component({
   selector: 'app-hint',
@@ -15,49 +12,47 @@ export class Hint{
   styleUrls: ['./hint.component.css']
 })
 export class HintComponent implements OnInit {
- @Input() hints: Hint[] = [];
+ @Input() definitions: IDefinition[]=[];
+ @Input() wordId:number=0; 
   
   constructor() { 
   }
 
   ngOnInit(): void {
-    
+ 
   }
   
 
   ngOnChanges(changes: SimpleChanges) {
-    let change = changes['hints'];
+    let change = changes["definitions"];
+    console.log('hints are ',this.definitions) ;
+    console.log('word id  ',this.wordId) ;
     if(!change.firstChange){
-      this.hints = change.currentValue;
+      this.definitions = change.currentValue;
     }
   }
 
   handleHintRequst(){
     console.log('handleHintReq')
-    let workHints = this.hints;
-    let len = workHints.length;
+    let workHints = this.definitions;
+    let rightDefIndex = workHints.findIndex(o => o.WordId === this.wordId);
     
-    let haveGoner = false;
-    
-    while(!haveGoner)
-    {
-      let idx = Math.floor(Math.random()*len);
-      if(!workHints[idx].isRightOne)
-      {
-        workHints.splice(idx,1);
-        console.log(workHints);
-        this.hints=workHints;
-        haveGoner=true;
-      }
-    } 
+     // Exclude the rightDefIndex from the array of possible indices to remove
+  let possibleIndices = Array.from({length: workHints.length}, (_, i) => i).filter(i => i !== rightDefIndex);
 
+  // Select a random index from the array of possible indices
+  let randomIndex = possibleIndices[Math.floor(Math.random() * possibleIndices.length)];
 
+  // Remove the element at the randomly selected index
+  workHints.splice(randomIndex, 1);
+   this.definitions = workHints;
+  
   }
 
   
 
-  trackByFn(index: number, hint:Hint) {
-    return hint.id;
+  trackByFn(index: number, hint:IDefinition) {
+    return hint.Id ;
   }
 
 }

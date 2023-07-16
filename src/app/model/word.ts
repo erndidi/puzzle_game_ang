@@ -1,3 +1,4 @@
+import { Inject } from "@angular/core";
 
 export class Hint{
     constructor(
@@ -5,8 +6,8 @@ export class Hint{
         public text:string, 
         public isRightOne: boolean){}
   }
- 
-  export class Word{
+  @Inject
+  export class WordObj{
     constructor(
       public Id: number,
       public Text:string,

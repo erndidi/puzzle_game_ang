@@ -34,8 +34,7 @@ import { SignupComponent } from './signup/signup.component';
     WordComponent,
     LetterComponent,
     HintComponent,
-    MisplacedComponent,
-    SignupComponent
+    MisplacedComponent
    // ModalComponent
   ],
   imports: [

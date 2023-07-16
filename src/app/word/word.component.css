@@ -19,5 +19,9 @@
     display: block;
   }
 
+  .modal-backdrop {
+    background-color: transparent;
+  } 
+
   
   
