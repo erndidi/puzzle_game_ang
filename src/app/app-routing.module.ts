@@ -1,25 +1,21 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {WelcomeComponent} from './welcome/welcome.component';
 import { LoginComponent } from './login/login.component';
-import { ErrorComponent } from './error/error.component';
+import { HttpClientModule } from '@angular/common/http'
 //import { ListTodosComponent } from './list-todos/list-todos.component';
 import { LogoutComponent } from './logout/logout.component';
-import { RouteGuardService } from './service/route-guard.service';
+import { Word, WordComponent } from './word/word.component';
+import { SignupComponent } from './signup/signup.component';
+
 
 const routes: Routes = [
-  
- 
-  {path:'welcome/:name', component:WelcomeComponent, canActivate:[RouteGuardService]},
-  //path:'todos', component:ListTodosComponent, canActivate:[RouteGuardService]},
+  {path:'home', component:WordComponent},
   {path:'login', component:LoginComponent},
- {path:'logout', component:LogoutComponent, canActivate:[RouteGuardService]},
-  {path:'', component:WelcomeComponent},
-  {path: '**', component:ErrorComponent, canActivate:[RouteGuardService]}
+ {path:'logout', component:WordComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes),HttpClientModule],
+  exports: [RouterModule,HttpClientModule]
 })
 export class AppRoutingModule { }

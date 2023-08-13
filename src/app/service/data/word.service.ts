@@ -32,12 +32,10 @@ export class WordService {
      console.log('url is ', url);
   
     return this._http.get<any>(url).pipe(
-      map(response => {
-        
+      map(response => {        
          console.log('response is ',response);
           const word:IWordObj = new WordObj(
-            response.SessionId,
-            response.Id,
+           response.Id,
             response.Text,
             response.Definitions.map((definition: any) => new Definition(
               definition.Id,

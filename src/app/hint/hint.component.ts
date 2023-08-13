@@ -26,7 +26,7 @@ export class HintComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     let change = changes["definitions"];
     console.log('hints are ',this.definitions) ;
-    console.log('word id  ',this.wordId) ;
+  //  console.log('word id  ',this.wordId) ;
     if(!change.firstChange){
       this.definitions = change.currentValue;
     }

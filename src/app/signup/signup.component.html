@@ -1,0 +1,31 @@
+<section class="container">
+    <form regform="ngform" class="contents">
+       
+  <mat-form-field> 
+    <input type="text" matInput class="form-control" id="email"  name="email"   placeholder="email" >
+    
+</mat-form-field>
+  <ng-container *ngIf="!isValidEmail" >
+    <label style="color: red">User must enter in a valid email.</label>
+</ng-container>
+  
+<mat-form-field> 
+  <input type="text" class="form-control" id="password" name="password"  rows="3" [(ngModel)]="user.PassWord"  placeholder="password" required>
+</mat-form-field>
+
+<ng-container *ngIf="!isValidPassword" >
+  <label style="color: red">User must enter in a valid password.</label>
+</ng-container>
+
+<mat-form-field> 
+  <input type="text" matInput class="form-control" id="firstname" [(ngModel)] ="user.FirstName"   placeholder="First Name" >  
+</mat-form-field>
+
+<mat-form-field> 
+  <input type="text" matInput class="form-control" id="lastname" [(ngModel)] ="user.LastName"   placeholder="Last Name" >  
+</mat-form-field>
+
+  
+    </form>
+    <button class="btn btn-success" (click)="signIn()" type="submit">Submit</button>
+</section>

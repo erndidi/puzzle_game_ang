@@ -1,23 +1,37 @@
 
-<ng-container *ngIf="misplaced">
-    <app-misplaced [misplaced]="misplaced"></app-misplaced>
-</ng-container>
+
+ <div   *ngIf="!isLoading">
+
+<div class="wordgameContainer">
+
+
+  <div *ngFor="let l of letter_guess; let i=index trackBy: trackByFn" class="letters" >
+          <div style="min-width: auto;">
+          <input type="text" (keyup)="onKeyUpEvent($event)" (input)="handleInput($event,i)"  [value]="l"  />
+         </div>
+      </div> 
+   </div>
+  <div *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+
+   </div>
+
+    <div *ngIf="!isLoading" class="definitions">
+   <ng-container *ngIf="definitions">
+    <app-hint  [definitions]="definitions" [wordId]="wordId"></app-hint>
+  </ng-container>
+
+  </div>
+
    
+  
+  <ng-container *ngIf="isWinner">
+    <p>The hidden word was {{word}}. You're welcome to keep playing of course, but if you like the game to keep track of guessed words and your score, and see how you measure up against other players then<a routerLink="/login" routerLinkActive="active">register</a> with your email.</p>  
+  </ng-container>
 
-<div *ngIf="letterOfRec"  class="container">
-    <div class="mb-3" *ngFor="let l of letter_guess; let i=index trackBy: trackByFn" >
-        
-        <input type="text" (keyup)="onKeyUpEvent($event)" (input)="handleInput($event,i)"  class="flex-child form-control" [value]="l"  />
-       
-    </div> 
 
-</div>
 
-<ng-container *ngIf="definitions">
-  <app-hint  [definitions]="definitions" [wordId]="wordId"></app-hint>
-</ng-container>
- 
 
-<ng-container *ngIf="isWinner">
-  <p>The hidden word was {{word}}. You're welcome to keep playing of course, but if you like the game to keep track of guessed words and your score, <a routerLink="/login" routerLinkActive="active"></a> register with your email.</p>  
-</ng-container>
+

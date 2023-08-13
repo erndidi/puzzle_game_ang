@@ -1,25 +1,24 @@
 <h2>Login!</h2>
 <h2>Create Account Here:</h2>
 
-<div class="mb-3"> 
-  <input type="text" class="form-control" id="username" [(ngModel)]="user.UserName" placeholder="username" required>
-</div>
-<div class="mb-3"> 
-    <input type="text" class="form-control" id="firstname" [(ngModel)]="user.Firstame" placeholder="firstname" >
-</div>
+<form>
 
-<div class="mb-3"> 
-  <input type="text" class="form-control" id="lastname" [(ngModel)]="user.LastName" placeholder="lastname" >
-</div>
-<div class="mb-3"> 
-  <input type="text" class="form-control" id="email" [(ngModel)]="user.Email" placeholder="email" required>
-</div>
+  <mat-form-field> 
+    <input type="text" class="form-control" id="email"  name="email"  [(ngModel)]="user.Email" placeholder="email" >
+  </mat-form-field>
+  <ng-container *ngIf="!isValidEmail">
+    <label style="color: red">User must enter in a valid email.</label>
+  </ng-container>
+  
+  <mat-form-field> 
+      <input type="text" class="form-control" id="password" name="password"  rows="3" [(ngModel)]="user.PassWord"  placeholder="password" required>
+    </mat-form-field>
+    <ng-container *ngIf="!isValidPassword">
+      <label style="color: red">User must enter in a valid password.</label>
+    </ng-container>
+  
+  
+ 
+</form>
+<button class="btn btn-success"  (click)="handleLogin()" type="submit">Submit</button>
 
-  <div class="mb-3">
-
-    <input type="text" class="form-control" id="password" rows="3" [(ngModel)]="password"  placeholder="password" required>
-  </div>
-
-<div class="g_id_signin" data-type="standard"></div>
-
-<button class="btn btn-success" (click)=handleLogin()>login</button>

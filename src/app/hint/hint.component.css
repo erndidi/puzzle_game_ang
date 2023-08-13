@@ -1,0 +1,14 @@
+ul{
+    text-align: left;
+}
+li{
+    font-size: x-large;
+    margin-bottom: 10px;
+}
+
+.definitions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}

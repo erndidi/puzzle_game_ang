@@ -1,27 +1,51 @@
-.container {
-    display: flex;
+
+  
+  .letters {
+     flex: 1 1 auto;
     flex-direction: row;
-    gap: 12px;
+    
   }
 
-  .flex-child{
-    display: inline-block;
-    width: 0;
-    flex-grow: 1;
+  input{
+    width: 4em;
+    height: 4em;
+    border-style: solid;
+    border-color: black;
+    border-radius: 1px;
+    margin-left: 3em;
+
   }
   
-  input {
-    min-width: 50px;
-    min-height: 50px;
-  }
-  
-  .container input:checked {
-    display: block;
+  .wordgameContainer {
+    display: flex;
+    margin: 20em;
+    align-items: center;
+    justify-content: space-between;
+    height: 5lvh;
+
   }
 
   .modal-backdrop {
     background-color: transparent;
   } 
+
+  .letter_hints{
+    display: flex;
+    flex-direction: column;
+  
+  }
+
+  .definitions{
+    display: flex;
+    margin: 20em;
+    align-items: center;
+    justify-content: space-between;
+    height: 5lvh;
+
+  }
+
+  
+
 
   
   

@@ -1,15 +1,12 @@
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div><a href="https://www.in28minutes.com" class="navbar-brand">In 28 minutes</a></div>
-        <ul class="navbar-nav">
-            <li><a *ngIf="hdService.isUserLoggedIn()" href="/welcome/in28minutes" class="nav-link">Welcome</a></li>
-            <li><a *ngIf="hdService.isUserLoggedIn()" href="/todos" class="nav-link">Todos</a></li>            
-        </ul>
-        <ul class="navbar-nav navbar-collapse justify-content-end" >
-            <li><a *ngIf="!hdService.isUserLoggedIn()" href="/login" class="nav-link">Login</a></li>
-            <li><a *ngIf="hdService.isUserLoggedIn()" href="/logout" class="nav-link">Logout</a></li>            
-        </ul>
-    </nav>
-</header>
+<nav class="mainNav">
+
+    <ul >
+      
+        <li><a  href="/word" class="nav-link">Word Game</a></li>
+        <li><a  href="/faq" class="nav-link">FAQ</a></li>
+        <li><a  href="/login" class="nav-link">Login</a></li>
+        <li><a  href="/logout" class="nav-link">Logout</a></li>            
+    </ul>
+</nav>
 
 

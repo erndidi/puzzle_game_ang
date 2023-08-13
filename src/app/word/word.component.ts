@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef, Output, ɵsetAllowDuplicateNgModuleIdsForTest } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Output } from '@angular/core';
 import { WordService } from '../service/data/word.service';
-import { IDefinition, IWordObj } from '../entity';
+import { IDefinition, IWordObj,Content,EndContent,EndHeading,StoreFunc } from '../entity';
 import './word.component.css';
-import { Content, EndContent, EndHeading, StoreFunc } from '../entity';
 import { Router } from '@angular/router';
+import { MatInput } from '@angular/material/input';
 
 
 declare var bootstrap: any;
@@ -38,6 +38,7 @@ export class WordComponent implements OnInit {
   _incomingWord:any;
   response:any;
    _letter_of_rec: IWordObj[]=[];
+   _letterCount:number=0;
   _svc: WordService;
   @Output() misplaced: string[] = [];
   definitions: IDefinition[] = [];
@@ -45,6 +46,7 @@ export class WordComponent implements OnInit {
   word: string = "";
   isWinner:boolean = false;
   @Output() content:Content = new Content(EndHeading(),EndContent());
+  isLoading:boolean = false;
 
 
   letterOfRec: string[] = [];
@@ -67,23 +69,28 @@ export class WordComponent implements OnInit {
     StoreFunc.setWordInStore('*');
     StoreFunc.setSessionId('*');
     this.startNewGame();
+     this.cdr.detectChanges();
   }
 
-  processWord(): void {
-    let work:IWordObj = this.response;
+  
+
+  processWord(rspe:any): void {
+    let work:IWordObj = rspe;
     this.word = work.Text;
     console.log('work is ',work);
     this.letterOfRec = [...work.Text];
     this.letterOfRec.forEach(element => {
       this.letter_guess.push('');
+      this._letterCount = this.letterOfRec.length;
     });
     
    
     this.wordId = work.Id;
     this.definitions = work.Definitions;
+    this.isLoading= false;
     
     
-    this.cdr.detectChanges();
+   
     //  console.log(this.letter_guess);
    // this.processHints(work);
   }
@@ -91,17 +98,18 @@ export class WordComponent implements OnInit {
   startNewGame(){
   const wrd = StoreFunc.getWordFromStore();
   const sessionid = StoreFunc.getSessionId();
+  this.isLoading =true;
   this._svc.getWordAndDefinitions(wrd,sessionid).subscribe((result: IWordObj) =>
    {
     this.response = result;
     console.log('incoming word ', this.response);
-   this.processWord();
+   this.processWord(this.response);
 
    }); 
     
 } 
 
-public EndGame() {
+public endGame() {
   this.isWinner = false;
   this.letter_guess=[""];
   this.startNewGame();
@@ -125,26 +133,21 @@ public EndGame() {
       }
       if(this.checkForWinner()){
         const storedWrd = StoreFunc.getWordFromStore();
-        StoreFunc.setWordInStore(JSON.stringify(storedWrd+","+this.letter_guess));
-        console.log(StoreFunc.getWordFromStore());
-      
+        this.handleScore();
+        if(storedWrd===null){
+          StoreFunc.setWordInStore(this.letterOfRec.toString());
+        } else{
+              StoreFunc.setWordInStore(JSON.stringify(storedWrd+","+this.letterOfRec.toString()));
+        }    
       }
       this.cdr.detectChanges();
-  
-
   }
 
   onKeyUpEvent(event:any){
-    //console.log('keyup event');
-   // console.log(this.checkForWinner());
-    if (this.checkForWinner() === true) {
+   if (this.checkForWinner() === true) {
         this.isWinner=true;
     }
   }
-
-
-
- 
 
   checkForWinner() {
     let hasMatch: Boolean = true;
@@ -152,7 +155,6 @@ public EndGame() {
       if (!(element === this.letter_guess[idx])) {
         hasMatch = false;
       }
-
     });
     return hasMatch;
   }
@@ -171,12 +173,13 @@ public EndGame() {
         console.log('has been misplaced is ', this.misplaced);
         this.cdr.detectChanges();
       }
-
     }
-
-
   }
 
+  handleScore(){
+    const oldScore = StoreFunc.getScore();
+    StoreFunc.setScore(oldScore+this._letter_of_rec.length);
+  }
 
 
 

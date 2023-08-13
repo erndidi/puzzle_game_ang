@@ -16,7 +16,6 @@ export interface IHint {
 export interface IWordObj {
   Id: number;
   Text: string;
-  SessionId:string;
   Definitions: IDefinition[];
 }
 
@@ -30,19 +29,47 @@ export interface IUserDTO{
    Email:string,
    UserName:string,
    FirstName:string,
-   LastName:string,
-   GoogleId:string,
-   FacebookId:string
-   sessionId:string,
-   UsedWord:string
+   LastName:string, 
+   SessionId:string,
+   UsedWord:string,
+   PassWord:string,
+   Score:number,
+   UserFound:boolean
 }
 
+export interface IPlayerScore{
+  UserName:string,
+  Email:string,
+  Score:number
+}
+
+export class UserDTO implements IUserDTO{
+  constructor(
+    public Email:string,
+    public UserName:string,
+    public FirstName:string,
+    public LastName:string, 
+    public SessionId:string,
+    public UsedWord:string,
+    public PassWord:string,
+    public Score:number,
+    public UserFound:boolean
+  ){}
+  
+}
+
+export class PlayerScore implements IPlayerScore{
+  constructor(
+     public UserName:string,
+     public Email:string,
+     public Score:number
+  ){}
+}
 
 export class WordObj implements IWordObj{
   constructor(
     public Id: number,
     public Text:string,
-    public SessionId:string,
     public Definitions:IDefinition[]
   ){}
 }
@@ -109,17 +136,24 @@ export function rtnAppId(){
   return "1901603733551447"
 }
 
+export function rtnUserCreateFail(){
+  return "User creation failed."
+}
+
 
 export class StoreFunc{
 
   static getWordFromStore():string | undefined{
-    const result = localStorage.getItem('word');
-    return result === null ? undefined : result;     
+    const result = localStorage.getItem("word");
+    return result === null ? "" : result;     
   }
   
   static getSessionId(){
-    const result = localStorage.getItem('sessionId');
-    return result === null ? undefined : result;  
+    const result = localStorage.getItem("sessionId");
+    return result === null ? "" : result;  
+  }
+  static getScore(){
+   return parseInt(localStorage.getItem("score") || "0");
   }
 
   static setWordInStore(word:string){
@@ -132,6 +166,10 @@ export class StoreFunc{
 
   static setUserName(username:string){
     localStorage.setItem("user",username);
+  }
+
+  static setScore(score:number){
+    localStorage.setItem("score",score.toString());
   }
 
 

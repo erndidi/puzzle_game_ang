@@ -1,9 +1,11 @@
-<ul >
-    <li *ngFor="let def of definitions; let i=index trackBy: trackByFn">
+<div class="hints">
+    <ul>
+      <li *ngFor="let def of definitions; let i=index trackBy: trackByFn">
         <span>{{def.Text}}</span>
-        
-
     </li>
 </ul>
 
 <button class="btn btn-dark" (click)="handleHintRequst()">Give me a hint</button>
+</div>
+
+  

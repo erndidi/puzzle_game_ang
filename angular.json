@@ -27,7 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css", "src/app/word/word.component.css"
+              "src/styles.css", "src/app/word/word.component.css","src/app/player-info/player-info.component.css"
             ],
             "scripts": ["node_modules/bootstrap/dist/js/bootstrap.min.js"
               
