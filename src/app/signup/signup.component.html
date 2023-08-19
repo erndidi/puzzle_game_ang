@@ -1,31 +1,47 @@
 <section class="container">
-    <form regform="ngform" class="contents">
-       
-  <mat-form-field> 
-    <input type="text" matInput class="form-control" id="email"  name="email"   placeholder="email" >
-    
-</mat-form-field>
-  <ng-container *ngIf="!isValidEmail" >
-    <label style="color: red">User must enter in a valid email.</label>
-</ng-container>
+
+  <div class="container"> 
+    <h1>Sign up below(only email and password required)</h1>
+    <form  class="form">
   
-<mat-form-field> 
-  <input type="text" class="form-control" id="password" name="password"  rows="3" [(ngModel)]="user.PassWord"  placeholder="password" required>
-</mat-form-field>
+      <mat-form-field class="form-element">
+        <input type="text" matInput class="form-control" id="email"  name="email" [(ngModel)]="user.Email"  placeholder="email" required>
+      </mat-form-field>
+         <ng-container *ngIf="!isValidEmail">
+        <label style="color: red">User must enter in a valid email.</label>
+      </ng-container>
+      <br/>
+   
+  
+      <mat-form-field class="form-element">
+        <input matInput type="text" class="form-control" id="password" name="password"  rows="3" [(ngModel)]="user.PassWord"  placeholder="password" required>
+      </mat-form-field>
+      <ng-container *ngIf="!isValidPassword">
+        <label style="color: red">User must enter in a valid password.</label>
+      </ng-container>
+      <br/>
+      <mat-form-field class="form-element">
+        <input type="text" matInput class="form-control" id="username"  name="username" [(ngModel)]="user.UserName"  placeholder="User Name" >
+      </mat-form-field>
+      <br/>
 
-<ng-container *ngIf="!isValidPassword" >
-  <label style="color: red">User must enter in a valid password.</label>
-</ng-container>
-
-<mat-form-field> 
-  <input type="text" matInput class="form-control" id="firstname" [(ngModel)] ="user.FirstName"   placeholder="First Name" >  
-</mat-form-field>
-
-<mat-form-field> 
-  <input type="text" matInput class="form-control" id="lastname" [(ngModel)] ="user.LastName"   placeholder="Last Name" >  
-</mat-form-field>
-
+      <mat-form-field class="form-element">
+        <input matInput type="text" class="form-control" id="lastname" name="firstname"  rows="3" [(ngModel)]="user.FirstName"  placeholder="First Name" >
+      </mat-form-field>
+  
+      <br/>
+  
+      <mat-form-field class="form-element">
+        <input matInput type="text" class="form-control" id="lastname" name="lastname"  rows="3" [(ngModel)]="user.LastName"  placeholder="Last Name" >
+      </mat-form-field>
+  
+      <br/>
+  
+      <div class="form-element">
+        <button class="btn btn-success" (click)="signIn()" type="submit">Submit Form</button>
+      </div>
   
     </form>
-    <button class="btn btn-success" (click)="signIn()" type="submit">Submit</button>
+  </div>
+  
 </section>

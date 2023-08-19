@@ -2,7 +2,7 @@ import { Component, OnInit,NgZone, ChangeDetectorRef} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../service/data/user.service';
 import { AuthService } from '../service/auth.service';
-import { IUserDTO, StoreFunc } from '../entity';
+import { IPlayerDTO, StoreFunc } from '../entity';
 
 
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
    private _auth:AuthService;
   
 
- public user: IUserDTO = {
+ public user: IPlayerDTO = {
     Email: '',
     UserName: '',
     FirstName: '',
@@ -106,7 +106,8 @@ validateUPassword(){
 
 validateEmail(){
   
-  const regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+  const regexp = new RegExp(/([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})/);
+  console.log('user email is '+this.user.Email);
   console.log("email "+regexp.test(this.user.Email));
   this.isValidEmail = regexp.test(this.user.Email);
   return this.isValidEmail;

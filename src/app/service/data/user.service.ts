@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, firstValueFrom, throwError } from 'rxjs';
-import { IPlayerScore, IUserDTO,PlayerScore } from 'src/app/entity';
+import { IPlayerScore, IPlayerDTO,PlayerScore, PlayerDTO } from 'src/app/entity';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,7 @@ import { map } from 'rxjs/operators';
 export class UserService {
 
   private _http: HttpClient;
-  private _url = "User";
-
-  endpoint = `${environment.apiUrl}add`;
+  endpoint = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) { 
     this._http = http;   
@@ -23,30 +22,46 @@ export class UserService {
 
     // CreateUser method with correct parameters
 
-async CreateUser(user: IUserDTO) :Promise<any> {
+async CreateUser(user: IPlayerDTO) :Promise<any> {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
    const url = this.endpoint+"add";
- //console.log('user in createuser is   '+JSON.stringify(user) );
-  try {
-    return await firstValueFrom(this.http.post(url, user, { headers }));   
+   try {
+    const rsp = await firstValueFrom(this.http.post(url, user, { headers }));   
+    const playerobje =JSON.stringify(rsp);
+    return playerobje;
   } catch (error) {
+    console.log(error);
     return error;
   }
 }
 
-async LoginUser(user: IUserDTO) :Promise<any> {
+
+async CreateUserb(user: IPlayerDTO) :Promise<any> {
+  console.log("creatreuser fetch")
+  const url = this.endpoint+"add";
+ console.log('url is '+url);
+
+
+}
+
+LoginUser(user: IPlayerDTO) :Promise<any> {
   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
    const url = this.endpoint+"login"
- //console.log('user in createuser is   '+JSON.stringify(user) );
+console.log('user in createuser is   '+user );
+ console.log('url is '+url);
   try {
-    return await firstValueFrom(this.http.post(url, user, { headers }));   
+    const resp = firstValueFrom(this.http.post(url, JSON.stringify(user), { headers })); 
+     console.log("resp "+resp);
+     return resp;
   } catch (error) {
-    return error;
+    console.log("error is "+error);
+    const rtnerror: any  = error;
+    return rtnerror;
   }
 }
   
   GetPlayerScores():Observable<IPlayerScore>{
-    let url = `${environment.apiUrl}GetTopPlayerScores/`;
+    let url = this.endpoint+"gettopScores";
     return this._http.get<any>(url).pipe(
       map(response =>{
         const playerScore:IPlayerScore = new PlayerScore(
@@ -62,7 +77,7 @@ async LoginUser(user: IUserDTO) :Promise<any> {
 
  
 
- async UpdateScore(user: IUserDTO): Promise<any> {
+ async UpdateScore(user: IPlayerDTO): Promise<any> {
     const url = environment.apiUrl+"/updateuser/";
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return await this.http.post(url, user, { headers }).pipe(

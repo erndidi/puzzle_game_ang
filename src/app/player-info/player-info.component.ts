@@ -10,6 +10,8 @@ export class PlayerInfoComponent implements OnInit {
   @Input() score:number=0;
   @Input() endTime:number=0;
   @Input() username:string="";
+  showEveryone:boolean=false;
+  showFriends:boolean=true;
 
 
   constructor() { }
@@ -22,6 +24,14 @@ export class PlayerInfoComponent implements OnInit {
       // const currentScore = changes['score'].currentValue;
       // Perform actions based on the changes in the 'score' input property
     }
+  }
+
+  seeFriends(){
+    this.showFriends = true;
+  }
+
+  seeEveryone(){
+    this.showEveryone = true;
   }
 
 }

@@ -25,7 +25,7 @@ export interface IDefinition {
   WordId: number;
 }
 
-export interface IUserDTO{
+export interface IPlayerDTO{
    Email:string,
    UserName:string,
    FirstName:string,
@@ -43,7 +43,7 @@ export interface IPlayerScore{
   Score:number
 }
 
-export class UserDTO implements IUserDTO{
+export class PlayerDTO implements IPlayerDTO{
   constructor(
     public Email:string,
     public UserName:string,
@@ -54,6 +54,7 @@ export class UserDTO implements IUserDTO{
     public PassWord:string,
     public Score:number,
     public UserFound:boolean
+    
   ){}
   
 }
